@@ -6,7 +6,6 @@ services:
     volumes:
       - ./backend:/app
       - ./users.db:/app/users.db
-      - ./templates:/app/templates
     restart: always
 
   frontend:
