@@ -20,10 +20,17 @@ def init_db():
 def home():
     return render_template('homepage.html')
 
-
 @app.route('/register-page')
 def register_page():
     return render_template('register.html')
+
+@app.route('/login-page')
+def login_page():
+    return render_template('login.html')
+
+@app.route('/landing-page')
+def landing_page():
+    return render_template('landingpage.html')
 
 @app.route('/register', methods=['POST'])
 def register():

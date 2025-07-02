@@ -127,9 +127,9 @@
 </head>
 <body>
   <div class="background-stars"></div>
-  <div class="register-container">
-    <h1>Register</h1>
-    <p>Please register to login</p>
+  <div class="login-container">
+    <h1>Login</h1>
+    <p>Welcome back, please sign in</p>
  <!-- Partner 1 -->
 <div class="input-container">
   <span class="icon">👤</span>
@@ -147,9 +147,9 @@
   <span class="icon">🔑</span>
   <input type="password" id="pin" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="\d*">
 </div>
-    <button id="signupButton">Sign Up</button>
+    <button id="signupButton" onclick="window.location.href='/landing-page'">Sign in</button>
     <p class="signin-link">
-      Already have an account? <a href="#">Sign in</a>
+      Don't have account? <a href="/register-page">Sign up</a>
     </p>
   </div>
 </body>
