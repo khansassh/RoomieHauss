@@ -1,10 +1,18 @@
-version: "3.9"
-
 services:
-  web:
-    build: .
+  backend:
+    build: ./backend
     ports:
       - "5000:5000"
     volumes:
-      - .:/app
+      - ./backend:/app
+      - ./users.db:/app/users.db
+      - ./templates:/app/templates
+    restart: always
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
     restart: always
