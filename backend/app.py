@@ -32,6 +32,10 @@ def login_page():
 def landing_page():
     return render_template('landingpage.html')
 
+@app.route('/inside-page')
+def inside_page():
+    return render_template('inside.html')
+
 @app.route('/register', methods=['POST'])
 def register():
     partner1 = request.form['partner1']
