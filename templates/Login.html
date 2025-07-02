@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #98a2a5;
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background-stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .background-stars::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="10" cy="10" r="1" fill="white"/%3E%3Ccircle cx="20" cy="30" r="1" fill="white"/%3E%3Ccircle cx="80" cy="60" r="1" fill="white"/%3E%3Ccircle cx="50" cy="90" r="1" fill="white"/%3E%3Ccircle cx="95" cy="5" r="1" fill="white"/%3E%3C/svg%3E');
+      background-size: 150px;
+      animation: stars 10s linear infinite;
+    }
+
+    @keyframes stars {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-100%);
+      }
+    }
+
+    .register-container {
+      margin: auto; /* Add this line */
+      text-align: center;
+      background-color: #d9d9d9;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      width: 300px;
+    }
+
+    .register-container h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .register-container p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .input-container input {
+      width: 100%;
+      padding: 10px 15px 10px 35px; /* reduced left padding from 40px to 35px */
+      box-sizing: border-box; /* <- ensures padding doesn't overflow container */
+      border: none;
+      border-radius: 20px;
+      background-color: #f0f0f0;
+      font-size: 16px;
+      box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-container .icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #666;
+    }
+
+    .register-container button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      background-color: #d9d9d9;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .register-container button:hover {
+      background-color: #c1c1c1;
+    }
+
+    .register-container .signin-link {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .register-container .signin-link a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .register-container .signin-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-stars"></div>
+  <div class="register-container">
+    <h1>Register</h1>
+    <p>Please register to login</p>
+ <!-- Partner 1 -->
+<div class="input-container">
+  <span class="icon">👤</span>
+  <input type="text" id="partner1" placeholder="Partner 1">
+</div>
+
+<!-- Partner 2 -->
+<div class="input-container">
+  <span class="icon">👤</span>
+  <input type="text" id="partner2" placeholder="Partner 2">
+</div>
+
+<!-- PIN -->
+<div class="input-container">
+  <span class="icon">🔑</span>
+  <input type="password" id="pin" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="\d*">
+</div>
+    <button id="signupButton">Sign Up</button>
+    <p class="signin-link">
+      Already have an account? <a href="#">Sign in</a>
+    </p>
+  </div>
+</body>
+</html>
