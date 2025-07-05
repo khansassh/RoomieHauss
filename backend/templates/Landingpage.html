@@ -134,10 +134,12 @@
       <img src="/Photo/Logo.png" alt="Logo" height="40">
     </div>
 
-    <!-- Exit Icon -->
-    <div class="exit-icon">
+  <div class="exit-icon">
+    <a href="/logout">
       <img src="/Photo/Logout.png" alt="Logout" height="30">
-    </div>
+    </a>
+  </div>
+
   </header>
 
   <div class="main-content">
@@ -150,18 +152,24 @@
     </div>
 
     <!-- Text Content + Button -->
-    <div class="text-content">
-      <p>
-        RoomieHaus is a 3D interactive roommate budgeting web application
-        that allows two users to manage and visualize their monthly finances together.
-      </p>
-      <div class="get-inside">
-        <button onclick="window.location.href='/inside-page'">
-           GET INSIDE
-          <img src="/Photo/touch.png" alt="Hand Icon" height="24" style="margin-left: 10px; vertical-align: middle;">
-        </button>
-      </div>
-    </div>
+<div class="text-content">
+  <p style="font-size:20px; margin-bottom:10px;">
+    Welcome, {{ partner1 }} & {{ partner2 }}!
+  </p>
+  <p>
+    RoomieHaus is a 3D interactive roommate budgeting web application
+    that allows two users to manage and visualize their monthly finances together.
+  </p>
+    <div class="get-inside">  
+    <button onclick="window.location.href='/inside-page'">
+  GET INSIDE
+  <img src="{{ url_for('static', filename='touch.png') }}" alt="House Image">
+
+</button>
+
+  </div>
+</div>
+
   </div>
 </body>
 </html>

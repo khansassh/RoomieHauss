@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RoomieHaus Budget Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at center, #D8A7B1 0%, #BFA2C6 50%, #5EABD6 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .speech-bubble {
+      position: relative;
+      background-color: #ffffff;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .speech-bubble:hover {
+      transform: scale(1.05);
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-top-color: #ffffff;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .back-button {
+      background-color: rgba(167, 142, 129, 0.8);
+      color: white;
+      border-radius: 9999px;
+      padding: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: rgba(167, 142, 129, 1);
+      transform: scale(1.05);
+    }
+
+    .message-box-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .message-box-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .message-box-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 90%;
+      color: #4a4a4a;
+    }
+
+    .message-box-content button {
+      background-color: #A78E81;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .message-box-content button:hover {
+      background-color: #967C70;
+    }
+  </style>
+</head>
+<body class="relative">
+
+  <!-- Message Box -->
+  <div id="messageBoxOverlay" class="message-box-overlay">
+    <div class="message-box-content">
+      <p id="messageBoxText" class="text-lg font-medium"></p>
+      <button id="messageBoxCloseButton">OK</button>
+    </div>
+  </div>
+
+  <div class="flex flex-col items-center justify-center w-full h-full p-4 md:p-8">
+
+    <!-- Welcome Header -->
+    <div class="absolute top-8 md:top-12 w-11/12 max-w-2xl bg-[#A78E81] bg-opacity-90 text-white text-center py-3 px-6 rounded-full shadow-lg text-lg md:text-xl font-semibold tracking-wide">
+      Welcome To RoomieHaus Budget Tracker....
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl mt-24 md:mt-0">
+
+      <!-- House & Characters -->
+      <div class="relative flex-shrink-0 w-full md:w-1/2 flex justify-center items-center mb-8 md:mb-0">
+        <img src="/static/your_house_image.png" alt="3D House Scene" class="w-full max-w-md h-auto rounded-lg shadow-xl">
+
+        <div id="auraName" class="speech-bubble absolute text-gray-800 font-medium text-sm md:text-base" style="top: 25%; left: 25%; transform: translate(-50%, -100%);">
+          {{partner1}}
+        </div>
+
+        <div id="khansaName" class="speech-bubble absolute text-gray-800 font-medium text-sm md:text-base" style="top: 25%; right: 25%; transform: translate(50%, -100%);">
+          {{partner2}}
+        </div>
+      </div>
+
+      <!-- Report Prompt -->
+      <div class="flex flex-col items-center md:items-start text-center md:text-left w-full md:w-1/2 p-4 md:p-8">
+        <div class="bg-[#A78E81] bg-opacity-90 text-white py-4 px-6 rounded-lg shadow-lg max-w-md md:max-w-none">
+          <p class="text-xl md:text-2xl font-semibold mb-2">Wanna Check About Who's Report Today?</p>
+          <p class="text-base md:text-lg">Touch one of the name to found out the report!!</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Back Arrow -->
+  <div class="absolute bottom-8 left-8">
+    <button id="backButton" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- JS Interactivity -->
+  <script>
+    function showMessageBox(message) {
+      const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+      const messageBoxText = document.getElementById('messageBoxText');
+      messageBoxText.textContent = message;
+      messageBoxOverlay.classList.add('active');
+    }
+
+    function hideMessageBox() {
+      document.getElementById('messageBoxOverlay').classList.remove('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const auraName = document.getElementById('auraName');
+      const khansaName = document.getElementById('khansaName');
+      const backButton = document.getElementById('backButton');
+      const messageBoxCloseButton = document.getElementById('messageBoxCloseButton');
+
+      auraName.addEventListener('click', () => {
+        const name = auraName.innerText;
+        showMessageBox(`Checking ${name}'s report...`);
+      });
+
+      khansaName.addEventListener('click', () => {
+        const name = khansaName.innerText;
+        showMessageBox(`Checking ${name}'s report...`);
+      });
+
+      backButton.addEventListener('click', () => {
+        window.history.back();
+      });
+
+      messageBoxCloseButton.addEventListener('click', () => {
+        window.location.href = '/budget-page';
+      });
+
+      document.getElementById('messageBoxOverlay').addEventListener('click', (event) => {
+        if (event.target.id === 'messageBoxOverlay') {
+          hideMessageBox();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

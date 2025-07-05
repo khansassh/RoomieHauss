@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
+  <title>Login</title>
   <style>
     body {
       margin: 0;
@@ -74,8 +74,8 @@
 
     .input-container input {
       width: 100%;
-      padding: 10px 15px 10px 35px; /* reduced left padding from 40px to 35px */
-      box-sizing: border-box; /* <- ensures padding doesn't overflow container */
+      padding: 10px 15px 10px 35px; 
+      box-sizing: border-box; 
       border: none;
       border-radius: 20px;
       background-color: #f0f0f0;
@@ -125,29 +125,47 @@
     }
   </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+  </style>
+</head>
 <body>
   <div class="background-stars"></div>
-  <div class="login-container">
+  <div class="register-container">
     <h1>Login</h1>
     <p>Welcome back, please sign in</p>
- <!-- Partner 1 -->
-<div class="input-container">
-  <span class="icon">👤</span>
-  <input type="text" id="partner1" placeholder="Partner 1">
-</div>
 
-<!-- Partner 2 -->
-<div class="input-container">
-  <span class="icon">👤</span>
-  <input type="text" id="partner2" placeholder="Partner 2">
-</div>
+    <form action="/login" method="POST">
+      <!-- Partner 1 -->
+      <div class="input-container">
+        <span class="icon">👤</span>
+        <input type="text" name="partner1" placeholder="Partner 1" required>
+      </div>
 
-<!-- PIN -->
-<div class="input-container">
-  <span class="icon">🔑</span>
-  <input type="password" id="pin" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="\d*">
-</div>
-    <button id="signupButton" onclick="window.location.href='/landing-page'">Sign in</button>
+      <!-- Partner 2 -->
+      <div class="input-container">
+        <span class="icon">👤</span>
+        <input type="text" name="partner2" placeholder="Partner 2" required>
+      </div>
+
+      <!-- PIN -->
+      <div class="input-container">
+        <span class="icon">🔑</span>
+        <input type="password" name="pin" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="\d*" required>
+      </div>
+
+      <button type="submit">Sign in</button>
+    </form>
+
+    {% if error %}
+      <p style="color: red; margin-top: 10px;">{{ error }}</p>
+    {% endif %}
+
     <p class="signin-link">
       Don't have account? <a href="/register-page">Sign up</a>
     </p>

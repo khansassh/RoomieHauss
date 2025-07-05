@@ -123,6 +123,24 @@
     .register-container .signin-link a:hover {
       text-decoration: underline;
     }
+        .input-container select {
+      width: 100%;
+      padding: 10px 15px 10px 35px;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 20px;
+      background-color: #f0f0f0;
+      font-size: 16px;
+      box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .input-container select option[disabled] {
+  color: #999;
+}
+
   </style>
 </head>
 <body>
@@ -152,6 +170,17 @@
   <div class="input-container">
     <span class="icon">🔑</span>
     <input type="password" name="pin" placeholder="PIN" maxlength="4" inputmode="numeric" pattern="\d{4}">
+  </div>
+
+   <!-- Dropdown gender/status -->
+  <div class="input-container">
+    <span class="icon">👗</span>
+    <select name="status" required>
+      <option value="" disabled selected>Select Status</option>
+      <option value="girl">Girl and Girl</option>
+      <option value="boy">Boy and Boy</option>
+      <option value="married">Married</option>
+    </select>
   </div>
 
   <button type="submit">Sign Up</button>

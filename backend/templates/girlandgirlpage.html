@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RoomieHaus Budget Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: radial-gradient(circle, #B89FA2, #E3C5C5);
+      font-family: 'Inter', sans-serif;
+    }
+    .card {
+      background-color: #FAF3F0;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    }
+    .section-title {
+      color: #A78E81;
+    }
+    .btn-custom {
+      background-color: #A78E81;
+      color: white;
+    }
+    .btn-custom:hover {
+      background-color: #8F766B;
+    }
+    .table-head {
+      background-color: #D9C3BC;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-8">
+
+  <div class="w-full max-w-5xl p-8 card">
+    <h1 class="text-3xl font-bold text-center mb-6" style="color:#A78E81;">RoomieHaus Budget Tracker</h1>
+
+    <p class="text-center text-lg mb-4 text-gray-700">
+      Welcome, <strong>{{ partner1 }}</strong> & <strong>{{ partner2 }}</strong> ({{ status }})
+    </p>
+
+    <div class="text-center mb-8">
+      <p class="text-2xl font-bold text-gray-800">💰 Remaining Balance: Rp {{ "{:,}".format(balance) }}</p>
+      <p class="text-lg mt-1 text-[#A78E81]">📥 Total Income: Rp {{ "{:,}".format(total_income) }}</p>
+      <p class="text-lg text-[#A78E81]">📤 Total Outcome: Rp {{ "{:,}".format(total_outcome) }}</p>
+    </div>
+
+    <!-- Income Section -->
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3 section-title">Income</h2>
+      <table class="w-full border border-gray-300 mb-4 text-sm md:text-base">
+        <thead class="table-head">
+          <tr>
+            <th class="py-2 px-3 border">Description</th>
+            <th class="py-2 px-3 border">Amount</th>
+            <th class="py-2 px-3 border">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in income_data %}
+          <tr>
+            <td class="py-2 px-3 border">{{ row[0] }}</td>
+            <td class="py-2 px-3 border">Rp {{ "{:,}".format(row[1]) }}</td>
+            <td class="py-2 px-3 border">{{ row[2] }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="3" class="py-2 px-3 text-center text-gray-500">No income data.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <form action="/add-income" method="POST" class="flex flex-col md:flex-row gap-2 mb-4">
+        <input type="text" name="description" placeholder="Description" required class="border p-2 rounded w-full">
+        <input type="number" name="amount" placeholder="Amount" required class="border p-2 rounded w-40">
+        <button type="submit" class="btn-custom px-4 py-2 rounded">+ Income</button>
+      </form>
+    </div>
+
+    <!-- Outcome Section -->
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3 section-title">Outcome</h2>
+      <table class="w-full border border-gray-300 mb-4 text-sm md:text-base">
+        <thead class="table-head">
+          <tr>
+            <th class="py-2 px-3 border">Description</th>
+            <th class="py-2 px-3 border">Amount</th>
+            <th class="py-2 px-3 border">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in outcome_data %}
+          <tr>
+            <td class="py-2 px-3 border">{{ row[0] }}</td>
+            <td class="py-2 px-3 border">Rp {{ "{:,}".format(row[1]) }}</td>
+            <td class="py-2 px-3 border">{{ row[2] }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="3" class="py-2 px-3 text-center text-gray-500">No outcome data.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <form action="/add-outcome" method="POST" class="flex flex-col md:flex-row gap-2 mb-4">
+        <input type="text" name="description" placeholder="Description" required class="border p-2 rounded w-full">
+        <input type="number" name="amount" placeholder="Amount" required class="border p-2 rounded w-40">
+        <button type="submit" class="btn-custom px-4 py-2 rounded">+ Outcome</button>
+      </form>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="flex justify-between items-center">
+      <a href="/landing-page" class="btn-custom px-4 py-2 rounded">← Back to Home</a>
+      <a href="/logout" class="text-[#A78E81] font-semibold hover:underline">Logout</a>
+    </div>
+  </div>
+
+</body>
+</html>

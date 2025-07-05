@@ -12,7 +12,7 @@
         body {
             font-family: 'Inter', sans-serif;
             /* Updated background color for a base, though radial gradient will mostly cover it */
-            background-color: #9A91BA;
+            background-color: brown;
             /* Radial gradient background as requested */
             background: radial-gradient(circle, #9991BA, #B89FA2);
             display: flex;
@@ -141,12 +141,12 @@
 
                 <!-- Aura's Name (positioned relative to the house image) -->
                 <div id="auraName" class="speech-bubble absolute text-gray-800 font-medium text-sm md:text-base" style="top: 25%; left: 25%; transform: translate(-50%, -100%);">
-                    Aura
+                    {{partner1}}
                 </div>
 
                 <!-- Khansa's Name (positioned relative to the house image) -->
                 <div id="khansaName" class="speech-bubble absolute text-gray-800 font-medium text-sm md:text-base" style="top: 25%; right: 25%; transform: translate(50%, -100%);">
-                    Khansa
+                    {{partner2}}
                 </div>
             </div>
 
@@ -170,7 +170,6 @@
     </div>
 
     <script>
-        // Function to show a custom message box
         function showMessageBox(message) {
             const messageBoxOverlay = document.getElementById('messageBoxOverlay');
             const messageBoxText = document.getElementById('messageBoxText');
@@ -178,47 +177,43 @@
             messageBoxOverlay.classList.add('active');
         }
 
-        // Function to hide the custom message box
         function hideMessageBox() {
             const messageBoxOverlay = document.getElementById('messageBoxOverlay');
             messageBoxOverlay.classList.remove('active');
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const auraName = document.getElementById('auraName');
-            const khansaName = document.getElementById('khansaName');
-            const backButton = document.getElementById('backButton');
-            const messageBoxCloseButton = document.getElementById('messageBoxCloseButton');
+document.addEventListener('DOMContentLoaded', () => {
+    const auraName = document.getElementById('auraName');
+    const khansaName = document.getElementById('khansaName');
+    const backButton = document.getElementById('backButton');
+    const messageBoxCloseButton = document.getElementById('messageBoxCloseButton');
 
-            // Event listener for Aura's name
-            auraName.addEventListener('click', () => {
-                showMessageBox("Checking Aura's report...");
-            });
+    auraName.addEventListener('click', () => {
+        const name = auraName.innerText;
+        showMessageBox(`Checking ${name}'s report...`);
+    });
 
-            // Event listener for Khansa's name
-            khansaName.addEventListener('click', () => {
-                showMessageBox("Checking Khansa's report...");
-            });
+    khansaName.addEventListener('click', () => {
+        const name = khansaName.innerText;
+        showMessageBox(`Checking ${name}'s report...`);
+    });
 
-            // Event listener for the back button
-            backButton.addEventListener('click', () => {
-                // In a real application, this would navigate back
-                // For this example, we'll just show a message.
-                showMessageBox("Navigating back...");
-                // You could use window.history.back() here in a browser environment
-                // window.history.back();
-            });
+    backButton.addEventListener('click', () => {
+        window.history.back();  
+        // showMessageBox("Navigating back...");
+    });
 
-            // Event listener for the message box close button
-            messageBoxCloseButton.addEventListener('click', hideMessageBox);
+  messageBoxCloseButton.addEventListener('click', () => {
+    window.location.href = '/budget-page';
+});
 
-            // Hide message box if clicked outside (optional)
-            document.getElementById('messageBoxOverlay').addEventListener('click', (event) => {
-                if (event.target.id === 'messageBoxOverlay') {
-                    hideMessageBox();
-                }
-            });
-        });
+    document.getElementById('messageBoxOverlay').addEventListener('click', (event) => {
+        if (event.target.id === 'messageBoxOverlay') {
+            hideMessageBox();
+        }
+    });
+});
+
     </script>
 </body>
 </html>
