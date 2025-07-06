@@ -6,7 +6,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background: radial-gradient(circle, #B89FA2, #9A91BA);
+      background: linear-gradient(92deg, #5eabd6 20%, #d3bfab 100%);
       font-family: 'Inter', sans-serif;
     }
     .card {
@@ -15,17 +15,17 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.12);
     }
     .section-title {
-      color: #9A91BA;
+      color: #34596d;
     }
     .btn-custom {
-      background-color: #9A91BA;
+      background-color: #34596d;
       color: white;
     }
     .btn-custom:hover {
-      background-color: #9A91BA;
+      background-color: #34596d;
     }
     .table-head {
-      background-color: #9A91BA;
+      background-color: #34596d;
     }
   </style>
 </head>
@@ -40,7 +40,7 @@
   {% endfor %}
 
   <div class="w-full max-w-5xl p-8 card">
-    <h1 class="text-3xl font-bold text-center mb-6" style="color:#9A91BA;">RoomieHaus Budget Tracker</h1>
+    <h1 class="text-3xl font-bold text-center mb-6" style="color:#3b82f6;">RoomieHaus Budget Tracker</h1>
 
     <p class="text-center text-lg mb-4 text-gray-700">
       Welcome, <strong>{{ partner1 }}</strong> & <strong>{{ partner2 }}</strong> ({{ status }})
@@ -48,8 +48,8 @@
 
     <div class="text-center mb-8">
       <p class="text-2xl font-bold text-gray-800">💰 Remaining Balance: Rp {{ "{:,}".format(balance) }}</p>
-      <p class="text-lg mt-1 text-[#9A91BA]">📥 Total Income: Rp {{ "{:,}".format(total_income) }}</p>
-      <p class="text-lg text-[#9A91BA]">📤 Total Outcome: Rp {{ "{:,}".format(total_outcome) }}</p>
+      <p class="text-lg mt-1 text-[#3b82f6]">📥 Total Income: Rp {{ "{:,}".format(total_income) }}</p>
+      <p class="text-lg text-[#3b82f6]">📤 Total Outcome: Rp {{ "{:,}".format(total_outcome) }}</p>
     </div>
 
     <div class="mb-8">
@@ -118,12 +118,12 @@
 
     <div class="flex justify-between items-center">
       <a href="/landing-page" class="btn-custom px-4 py-2 rounded">← Back to Home</a>
-      <a href="/logout" class="text-[#9A91BA] font-semibold hover:underline">Logout</a>
+      <a href="/logout" class="text-[#3b82f6] font-semibold hover:underline">Logout</a>
     </div>
   </div>
 
   <div class="my-4 text-center">
-    <button onclick="getBudgetTip()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+    <button onclick="getBudgetTip()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
       💡 Budget Tip
     </button>
     <p id="budget-tip" class="mt-4 text-white font-semibold"></p>

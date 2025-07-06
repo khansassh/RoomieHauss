@@ -6,33 +6,34 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background: radial-gradient(circle, #B89FA2, #9A91BA);
+       background: linear-gradient(92deg, #e5d6f5 20%, #b89fa2 100%); /* pastel pink to purple */
       font-family: 'Inter', sans-serif;
     }
     .card {
-      background-color: #FAF3F0;
+      background-color: #FFF5F7; /* light pink card */
       border-radius: 1.5rem;
       box-shadow: 0 8px 16px rgba(0,0,0,0.12);
     }
     .section-title {
-      color: #9A91BA;
+      color: #b583c0; /* soft purple */
     }
     .btn-custom {
-      background-color: #9A91BA;
+      background-color: #b89fa2;
       color: white;
     }
     .btn-custom:hover {
-      background-color: #9A91BA;
+      background-color: #b89fa2;
     }
     .table-head {
-      background-color: #9A91BA;
+      background-color: #e5d6f5;
     }
   </style>
 </head>
+
 <body class="min-h-screen flex flex-col items-center justify-center p-8">
 
   <div class="w-full max-w-5xl p-8 card">
-    <h1 class="text-3xl font-bold text-center mb-6" style="color:#9A91BA;">RoomieHaus Budget Tracker</h1>
+    <h1 class="text-3xl font-bold text-center mb-6" style="color:#b583c0;">RoomieHaus Budget Tracker</h1>
 
     <p class="text-center text-lg mb-4 text-gray-700">
       Welcome, <strong>{{ partner1 }}</strong> & <strong>{{ partner2 }}</strong> ({{ status }})
@@ -40,8 +41,8 @@
 
     <div class="text-center mb-8">
       <p class="text-2xl font-bold text-gray-800">💰 Remaining Balance: Rp {{ "{:,}".format(balance) }}</p>
-      <p class="text-lg mt-1 text-[#9A91BA]">📥 Total Income: Rp {{ "{:,}".format(total_income) }}</p>
-      <p class="text-lg text-[#9A91BA]">📤 Total Outcome: Rp {{ "{:,}".format(total_outcome) }}</p>
+      <p class="text-lg mt-1 text-[#b583c0]">📥 Total Income: Rp {{ "{:,}".format(total_income) }}</p>
+      <p class="text-lg text-[#b583c0]">📤 Total Outcome: Rp {{ "{:,}".format(total_outcome) }}</p>
     </div>
 
     <!-- Income Section -->
@@ -113,26 +114,31 @@
     <!-- Navigation Buttons -->
     <div class="flex justify-between items-center">
       <a href="/landing-page" class="btn-custom px-4 py-2 rounded">← Back to Home</a>
-      <a href="/logout" class="text-[#9A91BA] font-semibold hover:underline">Logout</a>
+      <a href="/logout" class="text-[#b583c0] font-semibold hover:underline">Logout</a>
     </div>
   </div>
-<div class="my-4 text-center">
-  <button onclick="getBudgetTip()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
-    💡 Budget Tip
-  </button>
-  <p id="budget-tip" class="mt-4 text-white-700 font-semibold"></p>
-</div>
-<script>
-  function getBudgetTip() {
-    fetch(`/get-random-message`)
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById("budget-tip").innerText = data.message;
-      });
-  }
-  setTimeout(() => {
-    document.querySelectorAll('[role="alert"]').forEach(el => el.style.display = 'none');
-  }, 5000);
-</script>
+
+  <!-- Budget Tip Button -->
+  <div class="my-4 text-center">
+    <button onclick="getBudgetTip()" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600">
+      💡 Budget Tip
+    </button>
+    <p id="budget-tip" class="mt-4 text-pink-100 font-semibold"></p>
+  </div>
+
+  <script>
+    function getBudgetTip() {
+      fetch(`/get-random-message`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("budget-tip").innerText = data.message;
+        });
+    }
+
+    setTimeout(() => {
+      document.querySelectorAll('[role="alert"]').forEach(el => el.style.display = 'none');
+    }, 5000);
+  </script>
+
 </body>
 </html>
