@@ -93,6 +93,21 @@
     </div>
 
   </div>
+<div class="my-4 text-center">
+  <button onclick="getBudgetTip()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+    💡 Budget Tip
+  </button>
+  <p id="budget-tip" class="mt-4 text-purple-700 font-semibold"></p>
+</div>
 
+<script>
+  function getBudgetTip() {
+    fetch(`/get-random-message`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("budget-tip").innerText = data.message;
+      });
+  }
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import sqlite3
 import os
+import random
 from datetime import datetime
 
 app = Flask(__name__)
@@ -246,6 +247,70 @@ def inside_page():
     else:
         return redirect(url_for('login_page'))
 
+@app.route('/get-random-message')
+def get_random_message():
+    if 'partner1' not in session or 'partner2' not in session:
+        return {'message': "Please log in first."}
+    conn = sqlite3.connect('users.db')
+    c = conn.cursor()
+
+    c.execute('''SELECT COALESCE(SUM(amount), 0) FROM budget 
+                 WHERE partner1 = ? AND partner2 = ? AND type = 'income' ''',
+              (session['partner1'], session['partner2']))
+    total_income = c.fetchone()[0]
+
+    c.execute('''SELECT COALESCE(SUM(amount), 0) FROM budget 
+                 WHERE partner1 = ? AND partner2 = ? AND type = 'outcome' ''',
+              (session['partner1'], session['partner2']))
+    total_outcome = c.fetchone()[0]
+
+    balance = total_income - total_outcome
+
+    c.execute('''SELECT description, MAX(amount) FROM budget 
+                 WHERE partner1 = ? AND partner2 = ? AND type = 'outcome' ''',
+              (session['partner1'], session['partner2']))
+    result = c.fetchone()
+    biggest_expense = result[0] if result[0] else None
+
+    conn.close()
+
+    messages = []
+
+    if balance < 100000:
+        messages.append("Your balance is running low. Try saving more! 🥲")
+    if biggest_expense:
+        messages.append(f"Your biggest expense this month is {biggest_expense} 💸")
+    if total_outcome > 1000000:
+        messages.append("You’ve spent over 1 million this month 💸")
+        
+    extra_messages = [
+        "Don’t forget to treat yourself, but budget wisely! 🍰",
+        "Saving is earning too — stash a little bit every day 💸",
+        "Think before you checkout that shopping cart 🛒",
+        "Money can’t buy happiness, but it buys boba — so balance it! 🧋",
+        "Maybe it’s time for a no-spend challenge this week 💪",
+        "Try setting a 20% savings goal next month 📊",
+        "You’re doing better than you think, keep tracking it! 🌟",
+        "How about cooking at home this weekend? Save some cash! 🍳",
+        "Financial stability is self-care too ✨",
+        "Plan your groceries before going shopping — trust me 🛒",
+        "Impulse buys are fun, but regrets are not 😅",
+        "You're halfway to your financial goals! 🥳",
+        "Want a budget-friendly date night idea? Movie + Indomie 🍜",
+        "Track small expenses — they sneak up fast! 🐍",
+        "Celebrate small wins, even if it’s saving 10k 💖",
+        "Boba fund check: how much have you spent this month? 🧋",
+        "Let’s aim for zero unnecessary expenses this weekend 🔒"
+    ]
+
+    messages.extend(extra_messages)
+    
+    if not messages:
+        messages.append("You’re managing your budget well this month! 🥳")
+
+    random_message = random.choice(messages)
+
+    return {'message': random_message}
 
 # @app.route('/marriage-page')
 # def marriage_page():
