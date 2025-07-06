@@ -99,7 +99,6 @@
   </button>
   <p id="budget-tip" class="mt-4 text-purple-700 font-semibold"></p>
 </div>
-
 <script>
   function getBudgetTip() {
     fetch(`/get-random-message`)
@@ -108,6 +107,9 @@
         document.getElementById("budget-tip").innerText = data.message;
       });
   }
+  setTimeout(() => {
+    document.querySelectorAll('[role="alert"]').forEach(el => el.style.display = 'none');
+  }, 5000);
 </script>
 </body>
 </html>

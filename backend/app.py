@@ -75,49 +75,40 @@ def budget_page():
         conn.close()
 
         balance = total_income - total_outcome
+        popup_messages = []
+        if balance < 100000:
+            popup_messages.append("⚠️ Your balance is running low. Try saving more! 🥲")
 
+        if outcome_data:
+            biggest_expense = max(outcome_data, key=lambda x: x[1])[0]  
+            popup_messages.append(f"💸 Your biggest expense this month is {biggest_expense}")
+
+        if not popup_messages:
+            popup_messages.append("🎉 You’re managing your budget well this month!")
+
+        template_name = ''
         if status == 'girl':
-            return render_template('girlandgirlpage.html',
-                                   partner1=session['partner1'],
-                                   partner2=session['partner2'],
-                                   status=status,
-                                   budget_data=budget_data,
-                                   total_income=total_income,
-                                   total_outcome=total_outcome,
-                                   balance=balance,
-                                    income_data=income_data,
-                                   outcome_data=outcome_data)
-        
+            template_name = 'girlandgirlpage.html'
         elif status == 'boy':
-            return render_template('boyandboypage.html',
-                                   partner1=session['partner1'],
-                                   partner2=session['partner2'],
-                                   status=status,
-                                   budget_data=budget_data,
-                                   total_income=total_income,
-                                   total_outcome=total_outcome,
-                                   balance=balance,
-                                   income_data=income_data,
-                           outcome_data=outcome_data)
-        
+            template_name = 'boyandboypage.html'
         elif status == 'married':
-            return render_template('married.html',
-                                   partner1=session['partner1'],
-                                   partner2=session['partner2'],
-                                   status=status,
-                                   budget_data=budget_data,
-                                   total_income=total_income,
-                                   total_outcome=total_outcome,
-                                   balance=balance,
-                                   income_data=income_data,
-                           outcome_data=outcome_data)
-        
+            template_name = 'married.html'
         else:
             flash("Unknown status.")
             return redirect(url_for('landing_page'))
-    
-    else:
-        return redirect(url_for('login_page'))
+
+        return render_template(template_name,
+                            partner1=session['partner1'],
+                            partner2=session['partner2'],
+                            status=status,
+                            budget_data=budget_data,
+                            total_income=total_income,
+                            total_outcome=total_outcome,
+                            balance=balance,
+                            income_data=income_data,
+                            outcome_data=outcome_data,
+                            popup_messages=popup_messages)
+
 
 @app.route('/add-income', methods=['POST'])
 def add_income():
