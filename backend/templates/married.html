@@ -6,26 +6,27 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background: radial-gradient(circle, #B89FA2, #9A91BA);
+      background: radial-gradient(circle, #F5EBDD, #D2B48C); /* warm chocolate background */
       font-family: 'Inter', sans-serif;
     }
     .card {
-      background-color: #FAF3F0;
+      background-color: #FFFFFF; /* clean white background */
       border-radius: 1.5rem;
       box-shadow: 0 8px 16px rgba(0,0,0,0.12);
     }
     .section-title {
-      color: #9A91BA;
+      color: #7B3F00; /* chocolate */
     }
     .btn-custom {
-      background-color: #9A91BA;
+      background-color: #7B3F00; /* chocolate */
       color: white;
     }
     .btn-custom:hover {
-      background-color: #9A91BA;
+      background-color: #5A2E00; /* darker chocolate */
     }
     .table-head {
-      background-color: #9A91BA;
+      background-color: #7B3F00; /* chocolate */
+      color: white;
     }
   </style>
 </head>
@@ -33,14 +34,14 @@
 <body class="min-h-screen flex flex-col items-center justify-center p-8">
 
   {% for msg in popup_messages %}
-    <div class="bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded relative my-2 w-full max-w-3xl shadow" role="alert">
+    <div class="bg-brown-100 border border-brown-400 text-white-800 px-4 py-3 rounded relative my-2 w-full max-w-3xl shadow" role="alert">
       <strong class="font-bold">💡 Notice:</strong>
       <span class="block sm:inline">{{ msg }}</span>
     </div>
   {% endfor %}
 
   <div class="w-full max-w-5xl p-8 card">
-    <h1 class="text-3xl font-bold text-center mb-6" style="color:#9A91BA;">RoomieHaus Budget Tracker</h1>
+    <h1 class="text-3xl font-bold text-center mb-6 text-[#7B3F00]">RoomieHaus Budget Tracker</h1>
 
     <p class="text-center text-lg mb-4 text-gray-700">
       Welcome, <strong>{{ partner1 }}</strong> & <strong>{{ partner2 }}</strong> ({{ status }})
@@ -48,8 +49,8 @@
 
     <div class="text-center mb-8">
       <p class="text-2xl font-bold text-gray-800">💰 Remaining Balance: Rp {{ "{:,}".format(balance) }}</p>
-      <p class="text-lg mt-1 text-[#9A91BA]">📥 Total Income: Rp {{ "{:,}".format(total_income) }}</p>
-      <p class="text-lg text-[#9A91BA]">📤 Total Outcome: Rp {{ "{:,}".format(total_outcome) }}</p>
+      <p class="text-lg mt-1 text-[#7B3F00]">📥 Total Income: Rp {{ "{:,}".format(total_income) }}</p>
+      <p class="text-lg text-[#7B3F00]">📤 Total Outcome: Rp {{ "{:,}".format(total_outcome) }}</p>
     </div>
 
     <div class="mb-8">
@@ -118,12 +119,12 @@
 
     <div class="flex justify-between items-center">
       <a href="/landing-page" class="btn-custom px-4 py-2 rounded">← Back to Home</a>
-      <a href="/logout" class="text-[#9A91BA] font-semibold hover:underline">Logout</a>
+      <a href="/logout" class="text-[#7B3F00] font-semibold hover:underline">Logout</a>
     </div>
   </div>
 
   <div class="my-4 text-center">
-    <button onclick="getBudgetTip()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+    <button onclick="getBudgetTip()" class="bg-[#7B3F00] text-white px-4 py-2 rounded hover:bg-[#5A2E00]">
       💡 Budget Tip
     </button>
     <p id="budget-tip" class="mt-4 text-white font-semibold"></p>
